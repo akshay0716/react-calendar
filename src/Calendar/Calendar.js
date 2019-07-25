@@ -10,6 +10,28 @@ export class Calendar extends Component {
         }
     }
 
+    /*********************************
+     * @DESC - RENDER NEXT, PREVIOUS
+     * @DESC - AND CURRENT MONTH
+     ********************************/
+    renderHeaderCells = () => {
+        return (
+            <table style={{ width:'100%' }}>
+                <tr>
+                    <td><button onClick={ () => this.setState({
+                        currentMonth: dateFns.subMonths(this.state.currentMonth,1)
+                    }) }>Previous</button></td>
+                    <td>{ dateFns.format(this.state.currentMonth, "MMMM YYYY") }</td>
+                    <td><button onClick={ () => this.setState({
+                        currentMonth:dateFns.addMonths(this.state.currentMonth,1)
+                    }) }>Next</button></td>
+                </tr>
+            </table>
+        )
+    }
+    /*********************************
+     * @DESC - RENDER DATE CELLS
+     *********************************/
     renderCells =  () =>{
         //console.log(absentDays,attendanceDays);
         const {currentMonth} = this.state;
@@ -53,7 +75,6 @@ export class Calendar extends Component {
         return (
             <div className='table_responsive '>
                 <table className='table table-bordered my_calender_background'>
-                    
                     <tbody>
                         <tr>
                             {daysname}
@@ -68,6 +89,7 @@ export class Calendar extends Component {
     render() {
         return (
             <div>
+                { this.renderHeaderCells() }
                 { this.renderCells()}
             </div>
         )
